@@ -1,4 +1,4 @@
-<%= form_with(model: Picture.new) do |form| %>
+<%= form_with(model: @picture, local: true) do |form| %>
   <div class="picture_image">
     <%= form.label :image %>
     <%= form.text_field :image %>
