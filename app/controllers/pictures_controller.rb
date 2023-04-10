@@ -8,11 +8,16 @@ class PicturesController < ApplicationController
   end
 
   def create
-    Picture.create(picture_params)
-    redirect_to new_picture_path
+    @picture = current_user.pictures.build(picture_params)
+    if @picture.save
+      redirect_to new_picture_path, notice: "作成完了"
+    else
+      render :new
+    end
   end
 
   def show
+    @picture = Picture.find(params[:id])
   end
 
   def update

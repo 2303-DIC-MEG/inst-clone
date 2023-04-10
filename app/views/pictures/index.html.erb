@@ -2,15 +2,17 @@
 
 <table>
   <tr>
-    <th>画像</th>
-    <th>内容</th>
-  </th>
+    <td>画像</td>
+    <td>内容</td>
+  </tr>
 
-<% @pictures.each do |picture| %>
+  <% @pictures.each do |picture| %>
   <tr>
     <td><%= picture.image %></td>
     <td><%= picture.content %></td>
+    <td><%= link_to '詳細を確認する', picture_path(picture.id) %></td>
   </tr>
 <% end %>
 </table>
 
+<%= link_to '投稿画面へ戻る', new_picture_path %>
