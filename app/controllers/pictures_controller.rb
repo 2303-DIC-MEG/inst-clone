@@ -10,10 +10,14 @@ class PicturesController < ApplicationController
 
   def create
     @picture = current_user.pictures.build(picture_params)
-    if @picture.save
-      redirect_to new_picture_path, notice: "作成完了"
-    else
+    if params[:back]
       render :new
+    else
+      if @picture.save
+        redirect_to new_picture_path, notice: "作成完了"
+      else
+        render :new
+      end
     end
   end
 
@@ -34,6 +38,11 @@ class PicturesController < ApplicationController
   def destroy
     @picture.destroy
     redirect_to pictures_path, notice:"削除しました"
+  end
+
+  def confirm
+    @picture = current_user.pictures.build(picture_params)
+    render :new if @picture.invalid?
   end
 
   private
