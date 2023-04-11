@@ -11,6 +11,7 @@
     <td><%= picture.image %></td>
     <td><%= picture.content %></td>
     <td><%= link_to '詳細を確認する', picture_path(picture.id) %></td>
+    <td><%= link_to "ブログを編集する", edit_picture_path(picture.id) %></td>
   </tr>
 <% end %>
 </table>
