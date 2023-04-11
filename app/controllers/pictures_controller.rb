@@ -1,6 +1,5 @@
 class PicturesController < ApplicationController
-  before_action :set_picture, only:[:show, :edit, :update
-]
+  before_action :set_picture, only:[:show, :edit, :update, :destroy]
   def index
     @pictures = Picture.all
   end
@@ -33,6 +32,8 @@ class PicturesController < ApplicationController
   end
 
   def destroy
+    @picture.destroy
+    redirect_to pictures_path, notice:"削除しました"
   end
 
   private
