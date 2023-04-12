@@ -255,10 +255,10 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
-  carrierwave (>= 3.0.0.beta, < 4.0)
+  carrierwave
   jbuilder (~> 2.7)
   listen (~> 3.3)
-  mimemagic (= 0.3.7)
+  mimemagic
   pg (~> 1.1)
   pry-rails
   puma (~> 5.0)

@@ -14,7 +14,7 @@ class PicturesController < ApplicationController
       render :new
     else
       if @picture.save
-        redirect_to new_picture_path, notice: "作成完了"
+        redirect_to (@picture), notice: "作成完了"
       else
         render :new
       end
@@ -43,15 +43,16 @@ class PicturesController < ApplicationController
   def confirm
     @picture = current_user.pictures.build(picture_params)
     render :new if @picture.invalid?
+
   end
 
   private
 
-  def picture_params
-    params.require(:picture).permit(:image, :content)
-  end
-
   def set_picture
     @picture = Picture.find(params[:id])
+  end
+
+  def picture_params
+    params.require(:picture).permit(:image, :content, :image_cache)
   end
 end

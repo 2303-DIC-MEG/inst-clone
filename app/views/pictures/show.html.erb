@@ -1,7 +1,15 @@
 <h1>詳細画面</h1>
 
-<p>画像: <%= @picture.image %></p>
-<p>内容: <%= @picture.content %></p>
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @picture.image.url if @picture.image && @picture.image.url  %>
+</p>
 
-<td><%= link_to '一覧に戻る',pictures_path %></td>
+<p>
+  <strong>Content:</strong>
+  <%= @picture.content %>
+</p>
+
+<%= link_to '編集する', edit_picture_path(@picture) , data: { confirm: '本当に編集していいですか？' } if @picture.user_id == current_user.id %> 
+<%= link_to '一覧に戻る',pictures_path %>
 
