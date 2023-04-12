@@ -5,10 +5,7 @@
   <%= image_tag @picture.image.url if @picture.image && @picture.image.url  %>
 </p>
 
-<p>
-  <strong>Content:</strong>
-  <%= @picture.content %>
-</p>
+<p><%= @picture.content %></p>
 
 <%= link_to '編集する', edit_picture_path(@picture) , data: { confirm: '本当に編集していいですか？' } if @picture.user_id == current_user.id %> 
 <%= link_to '一覧に戻る',pictures_path %>
