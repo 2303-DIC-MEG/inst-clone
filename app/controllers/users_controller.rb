@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
-  def show
-    @user = User.find(params[:id])
-  end
+  before_action :ensure_current_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -15,13 +13,42 @@ class UsersController < ApplicationController
     else
       render :new
     end
+  end
 
+  def show
+    @user = User.find(params[:id])
+    @pictures = @user.pictures
+
+    favorites = Favorite.where(user_id: current_user.id).pluck(:pictures_id)  # ログイン中のユーザーのお気に入りのpost_idカラムを取得
+    @favorite_list = Picture.find(favorites)     # postsテーブルから、お気に入り登録済みのレコードを取得
+  end
+
+  def edit
+    @user = User.find(params[:id])
+    if @user.id != current_user.id
+      redirect_to new_session_path
+    end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to @user, notice: '更新しました。'
+    else
+      render :edit
+    end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :user_image, :user_image_cache)
   end
 
+  def ensure_current_user
+    if @current_user.id != params[:id].to_i
+      flash[:notice]="権限がありません"
+      redirect_to new_session_path
+    end
+  end
 end

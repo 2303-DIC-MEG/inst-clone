@@ -1,7 +1,7 @@
 class Picture < ApplicationRecord
-  validates :image,  presence: true
+  validates :picture,  presence: true
   validates :content, presence: true, length: { maximum: 255 }
   belongs_to :user
-  mount_uploader :image, ImageUploader
+  mount_uploader :picture, ImageUploader
   has_many :favorites, dependent: :destroy
 end

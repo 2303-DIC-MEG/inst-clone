@@ -1,7 +1,22 @@
 <br>
-<h1>ACCOUNT NAME: <%= @user.name %></h1>
+
+<h1><%= @user.name %>のページ</h1>
 
 <p>メールアドレス: <%= @user.email %></p>
 
-<%= link_to "投稿一覧", pictures_path %>
-<%= link_to "新規投稿", new_picture_path %>
+<% if @user[:image] %>
+  <p>プロフィール画像 <%= image_tag @user.image.url %></p>
+<% end %>
+
+<% if @favorite_list.present? %>
+  <p>お気に入り一覧:</p>
+  <% @favorite_list.each do |picture| %>
+    <p><%= picture.name %></p>
+  <% end %>
+<% end %>
+
+<p><%= link_to "お気に入り画面へ行く", bookmarks_pictures_path(@user.id) %></p>
+<p><%= link_to "ユーザー画像を編集する", edit_user_path(@user.id) %></p>
+<p><%= link_to "投稿一覧のページへ行く", pictures_path %>
+
+

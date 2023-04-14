@@ -1,7 +1,12 @@
 class PicturesController < ApplicationController
-  before_action :set_picture, only:[:show, :edit, :update, :destroy]
+  before_action :set_picture, only: [:edit, :update, :show, :destroy]
+  before_action :ensure_current_user_edit_posted_picture, only: [:edit, :update]
+
+
   def index
     @pictures = Picture.all
+    @users = User.all
+    @favorites = Favorite.all.where(user_id: current_user.id)
   end
 
   def new
@@ -14,7 +19,7 @@ class PicturesController < ApplicationController
       render :new
     else
       if @picture.save
-        redirect_to (@picture), notice: "作成完了"
+        redirect_to @picture, notice: "作成完了"
       else
         render :new
       end
@@ -43,7 +48,10 @@ class PicturesController < ApplicationController
   def confirm
     @picture = current_user.pictures.build(picture_params)
     render :new if @picture.invalid?
+  end
 
+  def bookmarks
+    @pictures = current_user.favorites
   end
 
   private
@@ -53,6 +61,14 @@ class PicturesController < ApplicationController
   end
 
   def picture_params
-    params.require(:picture).permit(:image, :content, :image_cache)
+    params.require(:picture).permit(:picture, :content, :picture_cache)
+  end
+
+  def ensure_current_user_edit_posted_picture
+    @picture = Picture.find(params[:id])
+    if @current_user.id != @picture.user_id
+      flash[:notice]="権限がありません"
+      redirect_to pictures_path
+    end
   end
 end

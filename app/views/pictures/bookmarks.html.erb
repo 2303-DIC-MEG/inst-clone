@@ -1,0 +1,19 @@
+<br>
+
+<h1>お気に入り一覧</h1>
+
+<table>
+  <tr>
+    <th>内容</th>
+    <th>投稿者</th>
+  </tr>
+
+  <% if @favorite_list.present? %>
+  <p>お気に入り一覧:</p>
+  <% @favorite_list.each do |picture| %>
+    <p><%= picture.name %></p>
+  <% end %>
+<% end %>
+</table>
+
+<%= link_to "戻る", :back %>
