@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 2023_04_13_023241) do
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "pictures_id", null: false
+    t.bigint "picture_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["pictures_id"], name: "index_favorites_on_pictures_id"
+    t.index ["picture_id"], name: "index_favorites_on_picture_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2023_04_13_023241) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "favorites", "pictures", column: "pictures_id"
+  add_foreign_key "favorites", "pictures"
   add_foreign_key "favorites", "users"
   add_foreign_key "pictures", "users"
 end

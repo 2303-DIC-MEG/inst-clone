@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @pictures = @user.pictures
 
-    favorites = Favorite.where(user_id: current_user.id).pluck(:pictures_id)  # ログイン中のユーザーのお気に入りのpost_idカラムを取得
+    favorites = Favorite.where(user_id: current_user.id).pluck(:picture_id)  # ログイン中のユーザーのお気に入りのpost_idカラムを取得
     @favorite_list = Picture.find(favorites)     # postsテーブルから、お気に入り登録済みのレコードを取得
   end
 
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :user_image, :user_image_cache)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :image, :image_cache)
   end
 
   def ensure_current_user

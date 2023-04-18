@@ -10,8 +10,18 @@
 <% end %>
 
 <%= form_with(model: @user, local: true) do |f| %>  
-  <%= f.label :user_image %>
-  <%= f.file_field :user_image %>
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :email %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+
+
+  <%= f.label :image %>
+  <%= f.file_field :image %>
   <%= f.submit "登録する" %>
 <% end %>
 
