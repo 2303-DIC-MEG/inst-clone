@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   resources :pictures, expect: [:index] do
     resource :favorites, only: [:create, :destroy]
   end
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
