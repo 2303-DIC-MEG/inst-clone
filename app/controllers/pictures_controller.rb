@@ -19,6 +19,7 @@ class PicturesController < ApplicationController
       render :new
     else
       if @picture.save
+        ContactMailer.contact_mail(@picture).deliver
         redirect_to @picture, notice: "作成完了"
       else
         render :new
